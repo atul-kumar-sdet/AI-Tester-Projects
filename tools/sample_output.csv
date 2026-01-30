@@ -1,0 +1,6 @@
+Test Summary,Action,Expected Result,Priority
+Valid Login Test,"Enter a valid username and password, click login button",User should be redirected to dashboard with successful login message,High
+Invalid Username Test,"Enter an invalid username and valid password, click login button",Error message should display 'Invalid username' for non-existent usernames,Medium
+Invalid Password Test,"Enter a valid username with less than 6 characters password, click login button",Error message should display 'Password must be at least 6 characters' for passwords less than 6 chars,Medium
+Empty Username Test,"Enter an empty username and valid password, click login button",Error message should display 'Invalid username' for empty usernames,High
+Empty Password Test,"Enter a valid username with an empty password, click login button",Error message should display 'Password must be at least 6 characters' for empty passwords,High

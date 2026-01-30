@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Test Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #6366f1;
+            /* Indigo */
+            --brand-secondary: #8b5cf6;
+            /* Violet */
+            --brand-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --bg-app: #fcfdfe;
+            --bg-sidebar: #0f172a;
+            /* Deep Obsidian */
+            --bg-card: #ffffff;
+            --text-heading: #1e293b;
+            --text-body: #475569;
+            --text-on-dark: #f8fafc;
+            --border-light: #f1f5f9;
+            --border-main: #e2e8f0;
+            --shadow-soft: 0 4px 20px -5px rgba(0, 0, 0, 0.05);
+            --radius-main: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-app);
+            color: var(--text-body);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-sidebar);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            color: var(--text-on-dark);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 3rem;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-main);
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .nav-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.03);
+            color: white;
+        }
+
+        /* Main Area */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 3rem;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .page-header h1 {
+            font-size: 1.875rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.02em;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-main);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--brand-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            background: #fcfdfe;
+            border: 1px solid var(--border-main);
+            border-radius: 10px;
+            padding: 1.25rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-heading);
+            transition: all 0.3s ease;
+            resize: none;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-vibrant {
+            background: var(--brand-gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.2);
+            width: 100%;
+        }
+
+        .btn-vibrant:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 20px -5px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Test Items */
+        .test-item {
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            background: #fff;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tc-head {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .tc-summary {
+            font-weight: 600;
+            color: var(--text-heading);
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .badge-high {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .badge-medium {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+
+        .badge-low {
+            background: #dcfce7;
+            color: #10b981;
+        }
+
+        .tc-content {
+            padding: 1.5rem;
+        }
+
+        .step-card {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .step-meta {
+            font-size: 0.75rem;
+            color: var(--brand-primary);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Loader */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade {
+            animation: fadeInUp 0.4s ease forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" />
+                    <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+            <span>TestEng</span>
+        </div>
+        <nav>
+            <a href="#" class="nav-item active">✨ Generator</a>
+            <a href="#" class="nav-item">📚 Library</a>
+        </nav>
+    </aside>
+
+    <main class="main-wrapper">
+        <div class="page-header">
+            <h1>Test Intelligence</h1>
+        </div>
+
+        <div class="layout-grid">
+            <section class="glass-card">
+                <div class="section-title">Scenario Definition</div>
+                <textarea id="requirementsInput"
+                    placeholder="Define your user story or feature flow... e.g., 'Verification of search functionality...'"></textarea>
+                <div style="margin-top: 2rem;">
+                    <button id="generateBtn" class="btn-vibrant" onclick="generateTests()">
+                        <span id="btnText">✨ Generate Tests</span>
+                    </button>
+                </div>
+            </section>
+
+            <section>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <div class="section-title" style="margin-bottom: 0;">Verification Items</div>
+                    <button id="downloadBtn" onclick="downloadCSV()" class="btn-vibrant"
+                        style="display:none; padding: 0.5rem 1.25rem; font-size: 0.85rem; width:auto; border-radius: 8px;">
+                        📥 Export CSV
+                    </button>
+                </div>
+                <div id="resultsList">
+                    <div class="glass-card"
+                        style="text-align: center; padding: 4rem; border: 2px dashed var(--border-main); background: transparent;">
+                        <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">Awaiting Scenario</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Start by entering your requirements on
+                            the left.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        let currentTestCases = [];
+
+        async function generateTests() {
+            const input = document.getElementById('requirementsInput');
+            const btn = document.getElementById('generateBtn');
+            const btnText = document.getElementById('btnText');
+
+            if (!input.value.trim()) { input.focus(); return; }
+
+            btn.disabled = true;
+            btnText.innerHTML = '<div class="spinner"></div> Analyzing...';
+
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ requirements: input.value })
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    currentTestCases = data.test_cases;
+                    renderTests(currentTestCases);
+                    document.getElementById('downloadBtn').style.display = 'block';
+                } else {
+                    alert(data.error);
+                }
+            } catch (e) {
+                alert('Connection error');
+            } finally {
+                btn.disabled = false;
+                btnText.innerHTML = '✨ Generate Tests';
+            }
+        }
+
+        function renderTests(tests) {
+            const container = document.getElementById('resultsList');
+            container.innerHTML = '';
+
+            tests.forEach((tc, idx) => {
+                const item = document.createElement('div');
+                item.className = 'test-item animate-fade';
+                item.style.animationDelay = `${idx * 0.1}s`;
+
+                const stepsHtml = (tc.steps || []).map(s => `
+                    <div class="step-card">
+                        <div class="step-meta">ACTION</div>
+                        <div style="margin-bottom: 0.5rem;">${s.action}</div>
+                        <div class="step-meta" style="color: var(--brand-secondary)">EXPECTED</div>
+                        <div>${s.expected_result}</div>
+                    </div>
+                `).join('');
+
+                item.innerHTML = `
+                    <div class="tc-head">
+                        <span class="tc-summary">${tc.summary}</span>
+                        <span class="badge badge-${(tc.priority || 'medium').toLowerCase()}">${tc.priority || 'Medium'}</span>
+                    </div>
+                    <div class="tc-content">
+                        ${tc.preconditions ? `<div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;"><strong>Pre-conditions:</strong> ${tc.preconditions}</div>` : ''}
+                        ${stepsHtml}
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        async function downloadCSV() {
+            try {
+                const response = await fetch('/download', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ test_cases: currentTestCases })
+                });
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'test_cases.csv';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+            } catch (e) { alert('Export failed'); }
+        }
+    </script>
+</body>
+
+</html>
